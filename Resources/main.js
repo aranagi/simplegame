@@ -61,20 +61,7 @@ window.addEventListener('click',function(){
 	if(inMeasure){ //計測中の時
 		stopMeasureEvent();
 	}else{
-		//スタート時間を取得
-		startTime = new Date();
-		//時間の表示を消す
-		//timeLabel.visible = false;
-		//フラグを立てる
-		inMeasure = true;
-		interval = setInterval(function(){
-			//現在時間
-			var nowTime = new Date();
-			//秒数の差を取得し、ミリ秒単位を秒単位になおす
-			var sec = Math.round((nowTime.getTime() - startTime.getTime())/10)/100;
-			var text = formatTimeText(sec);
-			timeLabel.text = text; //ラベルに時間をセット
-		},10);
+		startMeasureEvent();
 	}
 });
 
@@ -86,6 +73,23 @@ function formatTimeText(time){
 	return text;
 }
 
+function startMeasureEvent(){
+	//スタート時間を取得
+	startTime = new Date();
+	//時間の表示を消す
+	timeLabel.visible = false;
+	//フラグを立てる
+	inMeasure = true;
+	interval = setInterval(function(){
+		//現在時間
+		var nowTime = new Date();
+		//秒数の差を取得し、ミリ秒単位を秒単位になおす
+		var sec = Math.round((nowTime.getTime() - startTime.getTime())/10)/100;
+		var text = formatTimeText(sec);
+		timeLabel.text = text; //ラベルに時間をセット
+	},10);
+}
+
 function stopMeasureEvent(){
 	//ラベルの更新を止める
 	clearInterval(interval);
@@ -94,3 +98,4 @@ function stopMeasureEvent(){
 	//フラグを戻す
 	inMeasure = false;
 }
+
