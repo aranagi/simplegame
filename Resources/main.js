@@ -60,6 +60,7 @@ var startTime = null;
 window.addEventListener('click',function(){
 	if(inMeasure){ //計測中の時
 		stopMeasureEvent();
+		saveScore(timeLabel.text);
 	}else{
 		startMeasureEvent();
 	}
@@ -97,5 +98,11 @@ function stopMeasureEvent(){
 	timeLabel.visible = true;
 	//フラグを戻す
 	inMeasure = false;
+}
+
+function saveScore( score ){
+	//スコアをDBに保存する
+	Ti.API.info('saveScore');
+	scoreDB.execute('INSERT INTO SCORE VALUES(NULL, '+score+')');
 }
 
